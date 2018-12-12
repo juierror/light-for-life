@@ -27,7 +27,6 @@ class App extends Component {
         headers: { "Content-Type": "text/plain" }
       })
       .then(res => {
-        console.log(`${this.url}state?auth${this.key}&retain`);
         console.log(res);
       });
   };
@@ -38,7 +37,6 @@ class App extends Component {
         headers: { "Content-Type": "text/plain" }
       })
       .then(res => {
-        console.log(`${this.url}value?auth${this.key}&retain`);
         console.log(res);
       });
   };
