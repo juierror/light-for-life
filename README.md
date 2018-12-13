@@ -20,11 +20,11 @@ $ npm start
   - AutoDim
 - This IoT use netpie microgear to pass data to nodeMCU and nodeMCU will pass this data to stm32 via UART
 
-![NormalPicture](./public/git01.jpg)
+![NormalPicture](https://github.com/juierror/light-for-life/blob/master/public/git01.JPG)
 This is first scene when you enter application.
 
-![SecondPicture](./public/git01.jpg)
+![SecondPicture](https://github.com/juierror/light-for-life/blob/master/public/git02.JPG)
 Image will appear when we slide the bar.
 
-![lastPicture](./public/git01.jpg)
+![lastPicture](https://github.com/juierror/light-for-life/blob/master/public/git03.JPG)
 The full image when we slide bar to the maximum.
