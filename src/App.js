@@ -2,10 +2,32 @@ import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import axios from "axios";
+import microgear from "microgear";
+
+var gear2 = microgear.create({
+  key: "uBCg2t7fJBwD0nr",
+  secret: "F7b6F7IkHT0gfbcnuXUQyAB2N",
+  alias: "lfl"
+});
+
+gear2.connect("lightforlife");
 
 class App extends Component {
   constructor(props) {
     super(props);
+    this.gear = microgear.create({
+      key: "uBCg2t7fJBwD0nr",
+      secret: "F7b6F7IkHT0gfbcnuXUQyAB2N",
+      alias: "lfl"
+    });
+    gear2.on("connected", () => {
+      console.log("connected . . .");
+      gear2.setAlias("lfl");
+    });
+    gear2.on("error", err => {
+      //console.log("Error: " + err);
+      gear2.connect("lightforlife");
+    });
     this.key = "uBCg2t7fJBwD0nr:F7b6F7IkHT0gfbcnuXUQyAB2N";
     this.url = "https://api.netpie.io/topic/lightforlife/test/";
     this.state = {
@@ -18,6 +40,13 @@ class App extends Component {
     this.sendValue();
     this.sendState(0);
   }
+
+  sendMicroGear = () => {
+    gear2.chat(
+      "nodemcu",
+      `${this.state.idState} ${this.state.light} ${this.state.autolight}`
+    );
+  };
 
   sendState = state => {
     axios
@@ -122,8 +151,8 @@ class App extends Component {
               onInput={e => {
                 this.setState({ light: e.target.value });
                 console.log(e.target.value);
-                setTimeout(this.sendValue, 250);
-                //this.sendValue();
+                //setTimeout(this.sendValue, 250);
+                setTimeout(this.sendMicroGear, 500);
               }}
             />
             <h4>AutoDim Light</h4>
@@ -138,7 +167,8 @@ class App extends Component {
               onInput={e => {
                 this.setState({ autolight: e.target.value });
                 console.log(e.target.value);
-                setTimeout(this.sendValue, 250);
+                //setTimeout(this.sendValue, 250);
+                setTimeout(this.sendMicroGear, 500);
                 //this.sendAutoValue();
               }}
             />
@@ -149,7 +179,8 @@ class App extends Component {
               onClick={() => {
                 console.log("AutoDim");
                 this.setState({ state: "AutoDim", idState: 1 });
-                this.sendState(1);
+                //this.sendState(1);
+                setTimeout(this.sendMicroGear, 500);
                 document.getElementById("manual").disabled = true;
                 document.getElementById("auto").disabled = false;
               }}
@@ -162,7 +193,8 @@ class App extends Component {
               onClick={() => {
                 console.log("Manual");
                 this.setState({ state: "Manual", idState: 0 });
-                this.sendState(0);
+                //this.sendState(0);
+                setTimeout(this.sendMicroGear, 500);
                 document.getElementById("manual").disabled = false;
                 document.getElementById("auto").disabled = true;
               }}
