@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
 import microgear from "microgear";
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -15,10 +14,6 @@ class App extends Component {
     this.gear.on("connected", () => {
       console.log("connected . . .");
     });
-    // gear2.on("error", err => {
-    //   //console.log("Error: " + err);
-    //   gear2.connect("lightforlife");
-    // });
     this.state = {
       light: 0,
       autolight: 50,
@@ -88,8 +83,6 @@ class App extends Component {
               onInput={e => {
                 this.setState({ light: e.target.value });
                 console.log(e.target.value);
-                //setTimeout(this.sendValue, 250);
-                setTimeout(this.sendMicroGear, 500);
               }}
             />
             <h4>AutoDim Light</h4>
@@ -104,9 +97,6 @@ class App extends Component {
               onInput={e => {
                 this.setState({ autolight: e.target.value });
                 console.log(e.target.value);
-                //setTimeout(this.sendValue, 250);
-                setTimeout(this.sendMicroGear, 500);
-                //this.sendAutoValue();
               }}
             />
             <br />
@@ -116,8 +106,6 @@ class App extends Component {
               onClick={() => {
                 console.log("AutoDim");
                 this.setState({ state: "AutoDim", idState: 1 });
-                //this.sendState(1);
-                setTimeout(this.sendMicroGear, 500);
                 document.getElementById("manual").disabled = true;
                 document.getElementById("auto").disabled = false;
               }}
@@ -130,13 +118,21 @@ class App extends Component {
               onClick={() => {
                 console.log("Manual");
                 this.setState({ state: "Manual", idState: 0 });
-                //this.sendState(0);
-                setTimeout(this.sendMicroGear, 500);
                 document.getElementById("manual").disabled = false;
                 document.getElementById("auto").disabled = true;
               }}
             >
               Manual
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button
+              className="btn btn-outline-primary"
+              onClick={() => {
+                console.log("Send");
+                this.sendMicroGear();
+              }}
+            >
+              Send
             </button>
             <br />
             <br />
