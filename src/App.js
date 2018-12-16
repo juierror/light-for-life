@@ -10,26 +10,18 @@ var gear2 = microgear.create({
   alias: "lfl"
 });
 
-gear2.connect("lightforlife");
-
 class App extends Component {
   constructor(props) {
     super(props);
-    this.gear = microgear.create({
-      key: "uBCg2t7fJBwD0nr",
-      secret: "F7b6F7IkHT0gfbcnuXUQyAB2N",
-      alias: "lfl"
-    });
+
+    gear2.connect("lightforlife");
     gear2.on("connected", () => {
       console.log("connected . . .");
-      gear2.setAlias("lfl");
     });
-    gear2.on("error", err => {
-      //console.log("Error: " + err);
-      gear2.connect("lightforlife");
-    });
-    this.key = "uBCg2t7fJBwD0nr:F7b6F7IkHT0gfbcnuXUQyAB2N";
-    this.url = "https://api.netpie.io/topic/lightforlife/test/";
+    // gear2.on("error", err => {
+    //   //console.log("Error: " + err);
+    //   gear2.connect("lightforlife");
+    // });
     this.state = {
       light: 0,
       autolight: 50,
