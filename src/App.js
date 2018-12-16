@@ -15,6 +15,7 @@ class App extends Component {
     super(props);
 
     gear2.connect("lightforlife");
+
     gear2.on("connected", () => {
       console.log("connected . . .");
     });
@@ -29,8 +30,8 @@ class App extends Component {
       idState: 0
     };
     //this.sendAutoValue();
-    this.sendValue();
-    this.sendState(0);
+    //this.sendValue();
+    //this.sendState(0);
   }
 
   sendMicroGear = () => {
@@ -38,6 +39,7 @@ class App extends Component {
       "nodemcu",
       `${this.state.idState} ${this.state.light} ${this.state.autolight}`
     );
+    console.log("Success");
   };
 
   sendState = state => {
