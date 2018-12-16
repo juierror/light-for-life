@@ -1,22 +1,18 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./App.css";
-import axios from "axios";
 import microgear from "microgear";
-
-var gear2 = microgear.create({
-  key: "uBCg2t7fJBwD0nr",
-  secret: "F7b6F7IkHT0gfbcnuXUQyAB2N",
-  alias: "lfl"
-});
 
 class App extends Component {
   constructor(props) {
     super(props);
+    this.gear = microgear.create({
+      key: "uBCg2t7fJBwD0nr",
+      secret: "F7b6F7IkHT0gfbcnuXUQyAB2N",
+      alias: "lfl"
+    });
+    this.gear.connect("lightforlife");
 
-    gear2.connect("lightforlife");
-
-    gear2.on("connected", () => {
+    this.gear.on("connected", () => {
       console.log("connected . . .");
     });
     // gear2.on("error", err => {
@@ -29,68 +25,15 @@ class App extends Component {
       state: "Manual",
       idState: 0
     };
-    //this.sendAutoValue();
-    //this.sendValue();
-    //this.sendState(0);
   }
 
   sendMicroGear = () => {
-    gear2.chat(
+    this.gear.chat(
       "nodemcu",
       `${this.state.idState} ${this.state.light} ${this.state.autolight}`
     );
     console.log("Success");
   };
-
-  sendState = state => {
-    axios
-      .put(
-        `${this.url}value?auth=${this.key}&retain`,
-        parseInt(state) +
-          " " +
-          parseInt(this.state.light) +
-          " " +
-          parseInt(this.state.autolight),
-        {
-          headers: { "Content-Type": "text/plain" }
-        }
-      )
-      .then(res => {
-        console.log(res);
-      });
-  };
-
-  sendValue = () => {
-    axios
-      .put(
-        `${this.url}value?auth=${this.key}&retain`,
-        parseInt(this.state.idState) +
-          " " +
-          parseInt(this.state.light) +
-          " " +
-          parseInt(this.state.autolight),
-        {
-          headers: { "Content-Type": "text/plain" }
-        }
-      )
-      .then(res => {
-        console.log(res);
-      });
-  };
-
-  // sendAutoValue = () => {
-  //   axios
-  //     .put(
-  //       `${this.url}autovalue?auth=${this.key}&retain`,
-  //       this.state.autolight,
-  //       {
-  //         headers: { "Content-Type": "text/plain" }
-  //       }
-  //     )
-  //     .then(res => {
-  //       console.log(res);
-  //     });
-  // };
 
   componentDidMount() {
     document.getElementById("manual").disabled = false;
