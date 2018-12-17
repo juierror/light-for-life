@@ -23,10 +23,23 @@ class App extends Component {
   }
 
   sendMicroGear = () => {
-    this.gear.chat(
-      "nodemcu",
-      `${this.state.idState} ${this.state.light} ${this.state.autolight}`
-    );
+    var str = "";
+    str += this.state.idState;
+
+    var light_val = this.state.light.toString();
+    while (light_val.length != 3) {
+      light_val = "0" + light_val;
+    }
+    str += light_val;
+
+    var auto_light_val = this.state.autolight.toString();
+    while (auto_light_val.length != 3) {
+      auto_light_val = "0" + auto_light_val;
+    }
+    str += auto_light_val;
+    this.gear.chat("nodemcu", str);
+
+    console.log(str);
     console.log("Success");
   };
 
